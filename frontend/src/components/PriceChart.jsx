@@ -72,7 +72,20 @@ export default function PriceChart({
 
                     <YAxis />
 
-                    <Tooltip />
+                    <Tooltip
+                        formatter={(value, name) => {
+
+                            if (name === "actualPrice") {
+                                return [`?${value}`, "Historical"];
+                            }
+
+                            if (name === "predictedPrice") {
+                                return [`?${value}`, "Forecast"];
+                            }
+
+                            return value;
+                        }}
+                    />
 
                     {/* historical */}
                     <Line

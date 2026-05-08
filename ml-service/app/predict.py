@@ -41,16 +41,24 @@ def forecast_prices(crop_name: str):
 
     forecast = model.predict(future)
 
-    result = forecast[ ["ds", "yhat"]  ].tail(7)
+    result = forecast[ ["ds", "yhat", "yhat_lower", "yhat_upper"]  ].tail(7)
 
     predictions = []
 
     for _, row in result.iterrows():
 
         predictions.append({
-            "date":row["ds"].strftime("%Y-%m-%d"),
+    "date":
+        row["ds"].strftime("%Y-%m-%d"),
 
-            "price": round(row["yhat"], 2)
-        })
+    "price":
+        round(row["yhat"], 2),
+
+    "lower":
+        round(row["yhat_lower"], 2),
+
+    "upper":
+        round(row["yhat_upper"], 2),
+})
 
     return predictions

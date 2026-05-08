@@ -74,7 +74,7 @@ export default function DashboardPage() {
                             <div
                                 style={{
                                     display: "flex",
-                                    gap: "20px",
+                                    gap: "15px",
                                     marginTop: "20px",
                                     flexWrap: "wrap",
                                 }}
@@ -94,7 +94,11 @@ export default function DashboardPage() {
                                     title="Recommendation"
                                     value={dashboard.recommendation || 'N\A'}
                                 />
-
+                                <DashboardCard
+                                    title="Forecast Range"
+                                    value={`${dashboard.predictions[0]?.lower}
+   - ${dashboard.predictions[0]?.upper}` || 'N\A'}
+                                />
                             </div>
 
                             <PriceChart
