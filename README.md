@@ -428,7 +428,7 @@ Prophet is the right choice for this stage. When enough historical data is accum
 *Full-Stack Developer | Building AgriCast*
 
 [![GitHub](https://img.shields.io/badge/GitHub-chirdekaran262-181717?style=for-the-badge&logo=github)](https://github.com/chirdekaran262)
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-yourprofile-0A66C2?style=for-the-badge&logo=linkedin)](https://www.linkedin.com/in/karan-chirde-0666ab1aa/)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-karan-chirde-0666ab1aa-0A66C2?style=for-the-badge&logo=linkedin)](https://www.linkedin.com/in/karan-chirde-0666ab1aa/)
 
 </div>
 
