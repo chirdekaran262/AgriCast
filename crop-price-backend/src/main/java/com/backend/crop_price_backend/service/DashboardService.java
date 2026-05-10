@@ -28,10 +28,59 @@ public class DashboardService {
     @Autowired
     private PredictionService predictionService;
     
-    public DashboardResponse getDashboard(Long cropId) {
+    public DashboardResponse getDashboard(Long cropId,String market) {
+    	if(market=="") {
+    		List<DailyPriceDTO> prices =
+        	        priceRepository.getDailyAveragePrices(cropId);
+    		if (prices.isEmpty()) {
+                throw new RuntimeException(
+                        "No price data found for cropId: " + cropId
+                );
+            }
+             
 
+            DashboardResponse response = new DashboardResponse();
+            Crop crop = cropRepository.findById(cropId)
+                    .orElseThrow();
+            response.setCropName(crop.getName());
+
+            response.setCurrentPrice(
+            	    Math.round(
+            	        prices.get(prices.size() - 1).getAvgPrice() * 100.0
+            	    ) / 100.0
+            	);
+
+            response.setRecommendation(
+                    recommendationService.getRecommendation(prices)
+            );
+
+            List<PricePoint> history = prices.stream()
+                    .map(p -> new PricePoint(
+                            p.getDate(),
+                            Math.round(p.getAvgPrice() * 100.0) / 100.0
+                    ))
+                    .toList();
+
+            response.setHistory(history);
+            
+            PredictionResponse predictionResponse =
+                    predictionService.predict(cropId);
+
+            response.setPredictions(
+                    predictionResponse.getPredictions()
+            );     
+            response.setPredictedPrice(predictionResponse.getPredictions().get(0).getPrice());
+            
+            response.setPredictedDate(
+            		predictionResponse.getPredictions().get(0).getDate()
+            	);
+            
+            return response;
+    	}
+    	else {
     	List<DailyPriceDTO> prices =
-    	        priceRepository.getDailyAveragePrices(cropId);
+    	        priceRepository.getDailyAveragePrices(cropId, market);
+    	
         // IMPORTANT FIX
         if (prices.isEmpty()) {
             throw new RuntimeException(
@@ -75,7 +124,10 @@ public class DashboardService {
         response.setPredictedDate(
         		predictionResponse.getPredictions().get(0).getDate()
         	);
-        
+        response.setPredictionAccuracy(
+        	    predictionResponse.getAccuracy()
+        	);
         return response;
+    	}
     }
 }

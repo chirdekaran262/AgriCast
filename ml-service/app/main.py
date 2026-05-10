@@ -8,9 +8,10 @@ app = FastAPI()
 @app.get("/predict/{crop_name}")
 def predict(crop_name: str):
 
-    predictions = forecast_prices(crop_name)
+    result = forecast_prices(crop_name)
 
     return {
         "crop": crop_name,
-        "predictions": predictions
+        "predictions": result["predictions"],
+        "accuracy": result["accuracy"]
     }

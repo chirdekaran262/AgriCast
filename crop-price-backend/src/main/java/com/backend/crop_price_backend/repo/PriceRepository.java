@@ -22,8 +22,33 @@ public interface PriceRepository extends JpaRepository<Price,Long>{
 	    		)
 	    		FROM Price p
 	    		WHERE p.crop.id = :cropId
+	    		AND (:market IS NULL OR p.market = :market)
 	    		GROUP BY p.date
 	    		ORDER BY p.date ASC
 	    		""")
-	    		List<DailyPriceDTO> getDailyAveragePrices(Long cropId);
+	    		List<DailyPriceDTO> getDailyAveragePrices(
+	    		        Long cropId,
+	    		        String market
+	    		);
+	    @Query("""
+	    		SELECT new com.backend.crop_price_backend.dto.DailyPriceDTO(
+	    		    p.date,
+	    		    AVG(p.avgPrice)
+	    		)
+	    		FROM Price p
+	    		WHERE p.crop.id = :cropId
+	    		GROUP BY p.date
+	    		ORDER BY p.date ASC
+	    		""")
+	    		List<DailyPriceDTO> getDailyAveragePrices(
+	    		        Long cropId
+	    		);
+	    
+	    @Query("""
+	    		SELECT DISTINCT p.market
+	    		FROM Price p
+	    		WHERE p.crop.id = :cropId
+	    		ORDER BY p.market ASC
+	    		""")
+	    		List<String> getMarketsByCrop(Long cropId);
 }

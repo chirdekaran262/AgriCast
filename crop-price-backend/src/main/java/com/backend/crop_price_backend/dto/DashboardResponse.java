@@ -19,6 +19,7 @@ public class DashboardResponse {
     private Double predictedPrice;
     private String predictedDate;
     private List<PredictionPoint> predictions;
+    private Double predictionAccuracy;
     // GETTERS & SETTERS
 
     public String getCropName() {
@@ -75,6 +76,14 @@ public class DashboardResponse {
 
 	public void setPredictions(List<PredictionPoint> predictions) {
 		this.predictions = predictions;
+	}
+
+	public Double getPredictionAccuracy() {
+		return predictionAccuracy;
+	}
+
+	public void setPredictionAccuracy(Double predictionAccuracy) {
+		this.predictionAccuracy = predictionAccuracy;
 	}
     
     

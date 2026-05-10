@@ -6,6 +6,7 @@ public class PredictionResponse {
 
     private String crop;
     private List<PredictionPoint> predictions;
+    private Double accuracy;
     public String getCrop() {
         return crop;
     }
@@ -21,5 +22,14 @@ public class PredictionResponse {
 	public void setPredictions(List<PredictionPoint> predictions) {
 		this.predictions = predictions;
 	}
+
+	public Double getAccuracy() {
+		return accuracy;
+	}
+
+	public void setAccuracy(Double accuracy) {
+		this.accuracy = accuracy;
+	}
+	
 
 }
